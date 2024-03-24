@@ -11,6 +11,15 @@
  * 
  * Stephen Graham's in class examples,
  * 
+ * Reanimated lib
+ * 
+ * Gorilla GIF from - https://www.gifs.cc/animals.html
+ * 
+ * Gorilla Moving GIF - https://www.wilsoninfo.com/animals.htm
+ * 
+ * Gorilla Wel GIF from - http://gifgifs.com/split/2830/
+ * 
+ * Gorilla dying from - https://www.freepik.com/free-vector/scene-with-monkey-dying-drought-land_5875389.htm
  * 
  * 
  * 

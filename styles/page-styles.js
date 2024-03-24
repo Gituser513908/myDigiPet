@@ -15,12 +15,11 @@ const styles = StyleSheet.create({
         marginTop: -100,
     },
 
-    circle: {
-        height: 120,
-        width: 120,
-        backgroundColor: '#b58df1',
-        borderRadius: 500,
-        cursor: 'grab',
+    pet: {
+        height: 100,
+        width: 130,
+       
+       
     },
 
    
@@ -74,43 +73,10 @@ const styles = StyleSheet.create({
     },
     
 
-    soundbutton: {
-        height: 100,
-        width: 100,
-        borderRadius: 0,
-        borderWidth: 2,
-        borderColor: 'solid',
-        
-        
-    },
+   
 
-    sb1: {
-       
-        top: 300,
-       left:-110,
-        width: 100,
-        height: 100,
-       
-        
-    },
-    sb2: {
-        
-        top: 200,
-       
-        width: 100,
-        height: 100,
-       
-    },
-    sb3: {
-
-        
-        top: 100,
-       left:110,
-        width: 100,
-        height: 100,
-       
-    },
-
+   
+  
     headText: {
         fontSize: 20,
         marginBottom: 10,

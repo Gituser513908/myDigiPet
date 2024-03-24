@@ -3,7 +3,7 @@
 
 
 import { useState, useEffect, useCallback } from 'react';
-import { Alert, Button, Text, Pressable, View } from 'react-native';
+import { Alert, Button, Text, Pressable, View, Image } from 'react-native';
 import 'react-native-gesture-handler';
 import { Link, useNavigation, useLocalSearchParams, } from 'expo-router';
 import { Audio } from 'expo-av';
@@ -37,7 +37,9 @@ export default function Page() {
     const [audioChange, setAudioChange] = useState(null);//to keep track of audio
     
     const [playback, setPlayback] = useState(null); // the playback object
-    
+
+    const gorillaWel = require('../assets/gorillaWel.gif'); // get gorilla welcome gif
+    const gorillaMove = require('../assets/gorillam.gif'); // get gorilla move gif
 
     const navigation = useNavigation(); // to navigate to page2
 
@@ -104,27 +106,34 @@ export default function Page() {
 
     const pan = Gesture.Pan()
         .onBegin(() => {
+            console.log("Gesture began");
             pressed.value = true;
         })
         .onChange((event) => {
+            console.log("Gesture chnage");
             offset.value = event.translationX;
         })
         .onFinalize(() => {
+            console.log("Gesture finalized");
             offset.value = withSpring(0);
             pressed.value = false;
         });
 
     const animatedStyles = useAnimatedStyle(() => ({
+
+
         transform: [
             { translateX: offset.value },
-            
+
         ],
+      
+        
         
     }));
    
 
-  
-
+    
+    
   
         
 
@@ -133,9 +142,7 @@ export default function Page() {
     // This effect hook will make sure the app stops recording when it ends
     useEffect(() => {
         return () => {
-            recordings.forEach(async recording => {
-                await recording.stopAndUnloadAsync();
-            });
+           
         };
     }, []);
 
@@ -171,7 +178,13 @@ export default function Page() {
                 <GestureHandlerRootView style={Styles.container}>
                     <View style={Styles.container}>
                         <GestureDetector gesture={pan}>
-                            <Animated.View style={[Styles.circle, animatedStyles]} />
+                        <Animated.View style={[animatedStyles]}>
+                            <Image
+                                source={pressed.value ?  gorillaMove  : gorillaWel  }
+                                style={Styles.pet }
+                            />
+
+                        </Animated.View>
                         </GestureDetector>
                     </View>
                 </GestureHandlerRootView>

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app",
+    "\\styles"
   ],
-  "SelectedNode": "\\babel.config.js",
+  "SelectedNode": "\\styles\\page-styles.js",
   "PreviewInSolutionExplorer": false
 }
