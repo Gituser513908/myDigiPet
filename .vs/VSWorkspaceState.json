@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\app",
+    "\\assets",
     "\\styles"
   ],
-  "SelectedNode": "\\styles\\page-styles.js",
+  "SelectedNode": "\\app\\page.js",
   "PreviewInSolutionExplorer": false
 }

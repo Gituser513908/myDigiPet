@@ -41,6 +41,8 @@ export default function Page() {
     const gorillaWel = require('../assets/gorillaWel.gif'); // get gorilla welcome gif
     const gorillaMove = require('../assets/gorillam.gif'); // get gorilla move gif
 
+    const [image, setImage] = useState(gorillaWel);
+
     const navigation = useNavigation(); // to navigate to page2
 
     
@@ -106,15 +108,16 @@ export default function Page() {
 
     const pan = Gesture.Pan()
         .onBegin(() => {
-            console.log("Gesture began");
+           console.log("Gesture began");
             pressed.value = true;
         })
         .onChange((event) => {
-            console.log("Gesture chnage");
+           console.log("Gesture chagne");
             offset.value = event.translationX;
+           pressed.value = true;
         })
         .onFinalize(() => {
-            console.log("Gesture finalized");
+           console.log("Gesture done");
             offset.value = withSpring(0);
             pressed.value = false;
         });
@@ -127,17 +130,22 @@ export default function Page() {
 
         ],
       
-        
+       
         
     }));
    
 
+    //use effect to chnage emage if pressed vlaue is true
+ useEffect(() => {
+    console.log("Pressed value changed:", pressed.value);
+    if (pressed.value === true)
+    {
+        setImage( gorillaMove);
+    }
     
     
-  
-        
+}, [pressed.value]);
 
-   
 
     // This effect hook will make sure the app stops recording when it ends
     useEffect(() => {
@@ -145,6 +153,8 @@ export default function Page() {
            
         };
     }, []);
+
+
 
     return (
 
@@ -180,7 +190,7 @@ export default function Page() {
                         <GestureDetector gesture={pan}>
                         <Animated.View style={[animatedStyles]}>
                             <Image
-                                source={pressed.value ?  gorillaMove  : gorillaWel  }
+                                source={image }
                                 style={Styles.pet }
                             />
 
