@@ -22,6 +22,7 @@ import {
     GestureDetector,
     GestureHandlerRootView,
     PanGestureHandler,
+    
 } from 'react-native-gesture-handler';
 
 
@@ -108,16 +109,16 @@ export default function Page() {
 
     const pan = Gesture.Pan()
         .onBegin(() => {
-           console.log("Gesture began");
+           
             pressed.value = true;
         })
         .onChange((event) => {
-           console.log("Gesture chagne");
+           
             offset.value = event.translationX;
-           pressed.value = true;
+           
         })
         .onFinalize(() => {
-           console.log("Gesture done");
+          
             offset.value = withSpring(0);
             pressed.value = false;
         });
@@ -135,17 +136,18 @@ export default function Page() {
     }));
    
 
-    //use effect to chnage emage if pressed vlaue is true
- useEffect(() => {
-    console.log("Pressed value changed:", pressed.value);
-    if (pressed.value === true)
-    {
-        setImage( gorillaMove);
-    }
-    
-    
-}, [pressed.value]);
+    //chnage GIF when pressed
+    const changeGif = () => {
+        setImage(gorillaMove);
 
+        //after 5 sec chnage back to original GIF
+
+        setTimeout(() => {
+            setImage(gorillaWel);
+        }, 5000);
+    };
+
+    
 
     // This effect hook will make sure the app stops recording when it ends
     useEffect(() => {
@@ -184,15 +186,21 @@ export default function Page() {
             
 
             
-
+            
                 <GestureHandlerRootView style={Styles.container}>
                     <View style={Styles.container}>
                         <GestureDetector gesture={pan}>
                         <Animated.View style={[animatedStyles]}>
+
+                            <Pressable
+                                onPress={changeGif}// when pressed chnage GIF to move gorilla
+                                
+                            >
                             <Image
                                 source={image }
                                 style={Styles.pet }
-                            />
+                                />
+                            </Pressable>
 
                         </Animated.View>
                         </GestureDetector>
