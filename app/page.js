@@ -45,6 +45,7 @@ export default function Page() {
     const gorillaMad = require('../assets/gorillaS.gif'); // get gorilla Mad gif
     const gorillaDead = require('../assets/gorillaD.jpg'); // get gorilla dead gif
     const angryGorillaSound = require('../assets/gorillaSound.mp3'); // get angry gorilla voice
+    const [gorillaAlive, setGorillaAlive] = useState(true); // set gorilla alive when loaded to true
 
     const [image, setImage] = useState(gorillaWel); // set GIF
 
@@ -182,6 +183,8 @@ export default function Page() {
         if (petHappy <= 0) {
 
             setImage(gorillaDead); // Change image to gorilla dead
+
+            setGorillaAlive(false); // gorilla is dead 
             
         } else if ( petHappy <= 50) {
 
@@ -190,6 +193,8 @@ export default function Page() {
         } 
 
     }, [petHappy]);// petHappy chnages
+
+
 
     //play angry sound when petHappy reaches 50
     useEffect(() => {
@@ -205,6 +210,39 @@ export default function Page() {
         }
     }, [petHappy]); // petHappy changes
 
+
+
+    //show page with end message when gorilla dies and have a restart presseable to allow restart
+    if (!gorillaAlive) {
+        return (
+            <View style={Styles.page}>
+                <Text style={{ fontSize: 20 }}>Gorilla Passed away! :( </Text>
+
+                <Text style={{ fontSize: 20 }}>Rest in Peace</Text>
+
+                <Text style={{ fontSize: 20 }}>Dont worry you can bring him back </Text>
+
+                <Pressable
+                    style={Styles.button}
+                    onPress={reviveG}
+                >
+                    <Text style={{ fontSize: 20 }}>Revive Gorilla</Text>
+                </Pressable>
+            </View>
+
+
+        );
+    }
+
+    //revive when revive gorilla is pressed
+
+    const reviveG = () => {
+
+        setPetHappy(100);
+        setGorillaAlive(true);
+
+
+    };
 
     // This effect hook will load the sound and unload when closed
     useEffect(() => {
