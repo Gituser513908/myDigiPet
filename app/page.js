@@ -182,7 +182,7 @@ export default function Page() {
 
                 setGorillaAlive(false); // gorilla is dead 
 
-            }, 2000); // 2 seconds wait
+            }, 4000); // 4 seconds wait
             
             
         } else if ( petHappy <= 50) {
@@ -265,7 +265,7 @@ export default function Page() {
             );
 
             //alert state saved successfully
-            Alert.alert('Success', 'State saved successfully!');
+            //Alert.alert('Success', 'State saved successfully!');
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
         }
