@@ -45,27 +45,34 @@ return (
 
         
 
-        <Text style={Styles.header}> Assignment 3</Text>
+        <Text style={Styles.header}> Assignment 4</Text>
 
 
-        <Text style={Styles.textW}> Welcome to my Soundboard</Text>
+        <Text style={Styles.textW}> Welcome to my DigiPet</Text>
 
         <Text style={Styles.text1}> How to play</Text>
 
-        <Text style={Styles.text2}> Click Sound to start</Text>
+        <Text style={Styles.text2}> Click CIT Kong to start</Text>
 
-        <Text style={Styles.text2}> 3 buttons on top play pre programmed sound</Text>
+        <Text style={Styles.text2}> Meet your pet Kong</Text>
 
-        <Text style={Styles.text2}> You can also Record you own sound </Text>
+        <Text style={Styles.text2}> Kong starts in Happy mode  </Text>
 
-        <Text style={Styles.text2}>Give your permission to use microphone  </Text>
+        <Text style={Styles.text2}>Keep eye on Happiness, Tap him to make him happy </Text>
 
-        <Text style={Styles.text2}> Click Start Recording to record your sound </Text>
+        <Text style={Styles.text2}> With 5 sec wait Happiness goies down, he becomes Angry Kong</Text>
 
-        <Text style={Styles.text2}> record Upto 4 recordings</Text>
+        <Text style={Styles.text2}> Roars and vibrates your phone </Text>
 
-        <Text style={Styles.text2}>Click clear to erase your recordings</Text>
+        <Text style={Styles.text2}>Don't be scared Tap him to make him Happy</Text>
 
+        <Text style={Styles.text2}>He will die if Happiness is 0</Text>
+
+        <Text style={Styles.text2}>You will be able to revive him </Text>
+
+        <Text style={Styles.text2}>To save click Save State</Text>
+
+        
         <Text style={Styles.text2}>ENJOY</Text>
 
         
