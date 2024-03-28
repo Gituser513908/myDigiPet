@@ -271,6 +271,13 @@ export default function Page() {
         }
     }
 
+    //adding useEffect to save state when petHappy chnages, this should automaticaly save states
+
+    useEffect(() => {
+
+        saveState();
+
+    },[petHappy]);
 
     // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
