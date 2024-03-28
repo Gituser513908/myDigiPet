@@ -184,7 +184,12 @@ export default function Page() {
 
             setImage(gorillaDead); // Change image to gorilla dead
 
-            setGorillaAlive(false); // gorilla is dead 
+            setTimeout(() => {
+
+                setGorillaAlive(false); // gorilla is dead 
+
+            }, 2000); // 2 seconds wait
+            
             
         } else if ( petHappy <= 50) {
 
@@ -212,35 +217,14 @@ export default function Page() {
 
 
 
-    //show page with end message when gorilla dies and have a restart presseable to allow restart
-    if (!gorillaAlive) {
-        return (
-            <View style={Styles.page}>
-                <Text style={{ fontSize: 20 }}>Gorilla Passed away! :( </Text>
-
-                <Text style={{ fontSize: 20 }}>Rest in Peace</Text>
-
-                <Text style={{ fontSize: 20 }}>Dont worry you can bring him back </Text>
-
-                <Pressable
-                    style={Styles.button}
-                    onPress={reviveG}
-                >
-                    <Text style={{ fontSize: 20 }}>Revive Gorilla</Text>
-                </Pressable>
-            </View>
-
-
-        );
-    }
-
+  
     //revive when revive gorilla is pressed
 
     const reviveG = () => {
 
         setPetHappy(100);
         setGorillaAlive(true);
-
+        setImage(gorillaWel);
 
     };
 
@@ -278,8 +262,11 @@ export default function Page() {
 
             </View>
 
-           
-            <Text style={ Styles.textW}>Happiness: {petHappy}</Text>
+         
+
+            {gorillaAlive ? ( 
+              <View>
+                <Text style={ Styles.textW}>Happiness: {petHappy}</Text>
             
                 <GestureHandlerRootView style={Styles.container}>
                     <View style={Styles.container}>
@@ -303,19 +290,30 @@ export default function Page() {
 
                         </Animated.View>
                         </GestureDetector>
-                    </View>
+                     </View>
                 </GestureHandlerRootView>
+              </View>
+            ) : (
+                    <View style={Styles.page}>
+                        <Text style={{ fontSize: 20 }}>Gorilla Passed away! :( </Text>
+
+                        <Text style={{ fontSize: 20 }}>Rest in Peace</Text>
+
+                        <Text style={{ fontSize: 20 }}>Dont worry you can bring him back </Text>
+
+                        <Pressable
+                            style={Styles.button}
+                            onPress={reviveG}
+                        >
+                            <Text style={{ fontSize: 20 }}>Revive Gorilla</Text>
+                        </Pressable>
+                    </View>
+                )
                 
-      
-              
-         
-                    
-               
+                
+             }
 
-
-      
-
-                       
+            
          </View>
 
 
