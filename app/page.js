@@ -265,19 +265,13 @@ export default function Page() {
             );
 
             //alert state saved successfully
-            //Alert.alert('Success', 'State saved successfully!');
+            Alert.alert('Success', 'State saved successfully!');
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
         }
     }
 
-    //adding useEffect to save state when petHappy chnages, this should automaticaly save states
-
-    useEffect(() => {
-
-        saveState();
-
-    },[petHappy]);
+   
 
     // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
