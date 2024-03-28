@@ -3,9 +3,9 @@
 
 
 import { useState, useEffect, useCallback } from 'react';
-import { Alert, Button, Text, Pressable, View, Image } from 'react-native';
+import { Alert, Button, Text, Pressable, Vibration, View, Image } from 'react-native';
 import 'react-native-gesture-handler';
-import { Link, useNavigation, useLocalSearchParams, } from 'expo-router';
+import { Link, useNavigation,  } from 'expo-router';
 import { Audio } from 'expo-av';
 import Styles from '../styles/page-styles';
 import * as FileSystem from 'expo-file-system';
@@ -37,7 +37,7 @@ export default function Page() {
     const navigation = useNavigation(); // to navigate to page2
     const [myPBO, setMyPBO] = useState(null);//hold my playnack object
     const [playBackStatus, setPlaybackStatus] = useState("Unloaded");//status
-    const [audioChange, setAudioChange] = useState(null);//to keep track of audio
+    
     
     const [playback, setPlayback] = useState(null); // the playback object
 
@@ -59,19 +59,11 @@ export default function Page() {
     //load a sound into the PBO 
     const loadSound = async () => {
 
-        
-
-      
         try {
 
            
             const soundObj = new Audio.Sound()
            
-           
-            
-
-            // const { sound } = await Audio.Sound.createAsync(audio);
-
             await soundObj.loadAsync(angryGorillaSound)
           
             setMyPBO(soundObj)
@@ -110,6 +102,7 @@ export default function Page() {
             
     }
 
+
     //gesture
     // took from react native Reanimated -> Handaling gestures
     const pressed = useSharedValue(false);
@@ -138,8 +131,7 @@ export default function Page() {
             { translateX: offset.value },
 
         ],
-      
-       
+ 
         
     }));
    
@@ -210,6 +202,7 @@ export default function Page() {
 
             loadSound();
             playPBO();
+            Vibration.vibrate();// vibrate Inspired from Authors  Irah, Van, Nate, Robee vibration example
 
         } else {
             
