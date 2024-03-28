@@ -195,7 +195,7 @@ export default function Page() {
 
 
 
-    //play angry sound when petHappy reaches 50
+    //play angry sound and vibrate when petHappy reaches 50
     useEffect(() => {
 
         if (petHappy <= 50) {
