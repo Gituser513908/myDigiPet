@@ -270,6 +270,9 @@ export default function Page() {
                 FileSystem.documentDirectory + fileName,
                 JSON.stringify(currentState)
             );
+
+            //alert state saved successfully
+            Alert.alert('Success', 'State saved successfully!');
         } catch (e) {
             console.log(FileSystem.documentDirectory + fileName + e);
         }
@@ -356,6 +359,8 @@ export default function Page() {
                     </Pressable>
                 </View>
             )}
+
+            
 
             <Pressable
                 style={Styles.button}
