@@ -92,7 +92,7 @@ return (
 
                 <Pressable>
                     
-                    <Text style={{ fontSize: 20 } }>Sounds</Text> 
+                    <Text style={{ fontSize: 20 } }>CIT KONG</Text> 
                 </Pressable>
 
             </Link>
