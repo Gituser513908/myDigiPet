@@ -8,6 +8,7 @@ import 'react-native-gesture-handler';
 import { Link, useNavigation, useLocalSearchParams, } from 'expo-router';
 import { Audio } from 'expo-av';
 import Styles from '../styles/page-styles';
+import * as FileSystem from 'expo-file-system';
 import Animated, {
     useAnimatedStyle,
     useSharedValue,
@@ -50,7 +51,8 @@ export default function Page() {
     const [image, setImage] = useState(gorillaWel); // set GIF
 
     const [petHappy, setPetHappy] = useState(100); // start at 100 happiness level
-   
+
+    const fileName = 'statefile.json'; // file name to store state
 
     
 
@@ -228,9 +230,56 @@ export default function Page() {
 
     };
 
-    // This effect hook will load the sound and unload when closed
+  
+
+  //save state inspired from Stephen's expo example
+
+ /**
+ * This function will load a json string of all the saved data 
+ * We assume that the file is good
+ * We assume that all the required object parts are present
+ */
+    const loadState = async () => {
+        try {
+            // get the string
+            const currentStateString = await FileSystem.readAsStringAsync(
+                FileSystem.documentDirectory + fileName
+            );
+            // convert it to an object
+            currentState = JSON.parse(currentStateString)
+            // extract all the saved states
+            setPetHappy(currentState.happy);
+            setImage(currentState.image);
+        } catch (e) {
+            console.log(FileSystem.documentDirectory + fileName + e);
+            // probably there wasn't a saved state, so make one for next time?
+            saveState();
+        }
+    }
+
+    /**
+     * This function will save the data as a json string 
+     */
+    const saveState = async () => {
+        // build an object of everything we are saving
+        const currentState = { "happy": petHappy, "image": image };
+
+        try {
+            // write the stringified object to the save file
+            await FileSystem.writeAsStringAsync(
+                FileSystem.documentDirectory + fileName,
+                JSON.stringify(currentState)
+            );
+        } catch (e) {
+            console.log(FileSystem.documentDirectory + fileName + e);
+        }
+    }
+
+
+    // This effect hook will load the state, sound and unload when closed
     useEffect(() => {
 
+        loadState();
         loadSound();
 
         return () => {
@@ -238,8 +287,6 @@ export default function Page() {
         };
 
     }, []);
-
-
 
     return (
 
@@ -264,54 +311,61 @@ export default function Page() {
 
          
 
-            {gorillaAlive ? ( 
-              <View>
-                <Text style={ Styles.textW}>Happiness: {petHappy}</Text>
-            
-                <GestureHandlerRootView style={Styles.container}>
-                    <View style={Styles.container}>
-                        <GestureDetector gesture={pan}>
-                        <Animated.View style={[animatedStyles]}>
+            {gorillaAlive ? (
+                <View>
+                    <Text style={Styles.textW}>Happiness: {petHappy}</Text>
 
-                            <Pressable
-                                onPress={() => {
-                                    changeGif();
+                    <GestureHandlerRootView style={Styles.container}>
+                        <View style={Styles.container}>
+                            <GestureDetector gesture={pan}>
+                                <Animated.View style={[animatedStyles]}>
 
-                                    addHappy();
+                                    <Pressable
+                                        onPress={() => {
+                                            changeGif();
 
-                                }}// when pressed chnage GIF to move gorilla and add happiness
-                                
-                            >
-                            <Image
-                                source={image}
-                                style={Styles.pet }
-                                />
-                            </Pressable>
+                                            addHappy();
 
-                        </Animated.View>
-                        </GestureDetector>
-                     </View>
-                </GestureHandlerRootView>
-              </View>
+                                        }}// when pressed chnage GIF to move gorilla and add happiness
+
+                                    >
+                                        <Image
+                                            source={image}
+                                            style={Styles.pet}
+                                        />
+                                    </Pressable>
+
+                                </Animated.View>
+                            </GestureDetector>
+                        </View>
+                    </GestureHandlerRootView>
+                </View>
             ) : (
-                    <View style={Styles.page}>
-                        <Text style={{ fontSize: 20 }}>Gorilla Passed away! :( </Text>
+                <View style={Styles.page}>
+                    <Text style={{ fontSize: 20 }}>Gorilla Passed away! :( </Text>
 
-                        <Text style={{ fontSize: 20 }}>Rest in Peace</Text>
+                    <Text style={{ fontSize: 20 }}>Rest in Peace</Text>
 
-                        <Text style={{ fontSize: 20 }}>Dont worry you can bring him back </Text>
+                    <Text style={{ fontSize: 20 }}>Dont worry you can bring him back </Text>
 
-                        <Pressable
-                            style={Styles.button}
-                            onPress={reviveG}
-                        >
-                            <Text style={{ fontSize: 20 }}>Revive Gorilla</Text>
-                        </Pressable>
-                    </View>
-                )
+                    <Pressable
+                        style={Styles.button}
+                        onPress={reviveG}
+                    >
+                        <Text style={{ fontSize: 20 }}>Revive Gorilla</Text>
+                    </Pressable>
+                </View>
+            )}
+
+            <Pressable
+                style={Styles.button}
+                onPress={saveState}
+            >
+                <Text style={{ fontSize: 20 }}>Save State</Text>
+            </Pressable>
                 
                 
-             }
+             
 
             
          </View>
