@@ -3,14 +3,22 @@ Assignment 4 - DigiPet by Rajan Chaudhari
 What the app does:
 
 you have a Gorilla when startrs it is in welcome phase
+
 you press it it truns to moving Gorilla
+
 your pet has Happiness level you tap him he happy addes 10 pts
+
 No Tapping with 5 sec happiness goes down by 5
+
 Happiness reaches <=50 gorilla angry, roars (sound) and vibrates phone until you tap it to make it happy > 50
+
 you can also swipe gorilla left & right , will come back in center
+
 can save by clicking Save sate btn
 
+
 Happiness 0 - poor gorilla Dead
+
 shows dead goriila for 4 sec then show the screen with revive btn (He never died)
 
 start again
