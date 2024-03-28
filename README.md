@@ -63,12 +63,17 @@ import {
 GIFS and Sound paths 
 
   const gorillaWel = require('../assets/gorillaWel.gif'); // get gorilla welcome gif
+  
     const gorillaMove = require('../assets/gorillam.gif'); // get gorilla move gif
+    
     const gorillaMad = require('../assets/gorillaS.gif'); // get gorilla Mad gif
+    
     const gorillaDead = require('../assets/gorillaD.jpg'); // get gorilla dead gif
+    
     const angryGorillaSound = require('../assets/gorillaSound.mp3'); // get angry gorilla voice
 
 //using react native reanimated which needed plugin added to babel.config.js
+
 module.exports = function(api) {
   api.cache(true);
   return {
