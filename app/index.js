@@ -21,6 +21,7 @@
  * 
  * Gorilla dying from - https://www.freepik.com/free-vector/scene-with-monkey-dying-drought-land_5875389.htm
  * 
+ * Gorilla angry sound from - https://pixabay.com/sound-effects/search/gorilla/
  * 
  * 
  */

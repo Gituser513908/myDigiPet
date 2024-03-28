@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     },
 
     pet: {
-        height: 250,
-        width: 280,
+        height: 230,
+        width: 250,
        
        
     },

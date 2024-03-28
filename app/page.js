@@ -44,6 +44,7 @@ export default function Page() {
     const gorillaMove = require('../assets/gorillam.gif'); // get gorilla move gif
     const gorillaMad = require('../assets/gorillaS.gif'); // get gorilla Mad gif
     const gorillaDead = require('../assets/gorillaD.jpg'); // get gorilla dead gif
+    const angryGorillaSound = require('../assets/gorillaSound.mp3'); // get angry gorilla voice
 
     const [image, setImage] = useState(gorillaWel); // set GIF
 
@@ -53,11 +54,11 @@ export default function Page() {
     
 
     //load a sound into the PBO 
-    const loadSound = async (soundNumber) => {
+    const loadSound = async () => {
 
-        setAudioChange(soundNumber);
+        
 
-        let audio = audioList[soundNumber];
+      
         try {
 
            
@@ -68,14 +69,14 @@ export default function Page() {
 
             // const { sound } = await Audio.Sound.createAsync(audio);
 
-            await soundObj.loadAsync(audio)
+            await soundObj.loadAsync(angryGorillaSound)
           
             setMyPBO(soundObj)
 
             setPlaybackStatus("Loaded");
 
-            playPBO();
-            console.log('loades',soundNumber);
+           
+            
         } catch (error) {
             console.log(error);
         }
@@ -88,7 +89,7 @@ export default function Page() {
 
          
 
-               myPBO.playAsync();
+              await myPBO.playAsync();
 
               setPlaybackStatus("Playing")
          
@@ -99,14 +100,14 @@ export default function Page() {
 
    //unload a pbo
     const unloadPBO = async () => {
-            if (myPBO)
+            
                 await myPBO.unloadAsync();
 
                 setPlaybackStatus("Unloaded");
             
     }
 
-    //animation
+    //gesture
     // took from react native Reanimated -> Handaling gestures
     const pressed = useSharedValue(false);
     const offset = useSharedValue(0);
@@ -145,24 +146,23 @@ export default function Page() {
 
         setImage(gorillaMove);// chnage GIF to moving gorilla when pressed
 
-        //after 5 sec chnage back to original GIF
-
-       // setTimeout(() => {
-         //   setImage(gorillaWel);
-        //}, 5000);
+       
     };
+
 
     //add happiness when GIF is pressed
     const addHappy = () => {
 
-        setPetHappy((currentHappy) => Math.min(currentHappy + 10, 100)); // add 5 to happiness cap it at 100
+        setPetHappy((currentHappy) => Math.min(currentHappy + 10, 100)); // add 10 to happiness cap it at 100
     };
+
 
     //decrease happiness by 5
     const notHappy = () => {
 
         setPetHappy((currentHappy) => Math.max(currentHappy - 5, 0)); // minus 5 to happiness cap it at 0
     };
+
 
     //run notHappy function every 5 sec when loaded 
     useEffect(() => {
@@ -174,6 +174,7 @@ export default function Page() {
         //  clear the interval
         return () => clearInterval(interval);
     }, []);
+
 
     // chnage GIF when haapiness chnages
     useEffect(() => {
@@ -190,12 +191,30 @@ export default function Page() {
 
     }, [petHappy]);// petHappy chnages
 
-
-    // This effect hook will make sure the app stops recording when it ends
+    //play angry sound when petHappy reaches 50
     useEffect(() => {
+
+        if (petHappy <= 50) {
+
+            loadSound();
+            playPBO();
+
+        } else {
+            
+            unloadPBO();// unload if goes above 50
+        }
+    }, [petHappy]); // petHappy changes
+
+
+    // This effect hook will load the sound and unload when closed
+    useEffect(() => {
+
+        loadSound();
+
         return () => {
-           
+            unloadPBO(); // unload the sound on component unmount
         };
+
     }, []);
 
 
@@ -222,7 +241,7 @@ export default function Page() {
             </View>
 
            
-            <Text>Happiness: {petHappy}</Text>
+            <Text style={ Styles.textW}>Happiness: {petHappy}</Text>
             
                 <GestureHandlerRootView style={Styles.container}>
                     <View style={Styles.container}>
