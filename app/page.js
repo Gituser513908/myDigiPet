@@ -33,6 +33,7 @@ import {
 
 export default function Page() {
 
+    const navigation = useNavigation(); // to navigate to page2
     const [myPBO, setMyPBO] = useState(null);//hold my playnack object
     const [playBackStatus, setPlaybackStatus] = useState("Unloaded");//status
     const [audioChange, setAudioChange] = useState(null);//to keep track of audio
@@ -41,10 +42,13 @@ export default function Page() {
 
     const gorillaWel = require('../assets/gorillaWel.gif'); // get gorilla welcome gif
     const gorillaMove = require('../assets/gorillam.gif'); // get gorilla move gif
+    const gorillaMad = require('../assets/gorillaS.gif'); // get gorilla Mad gif
+    const gorillaDead = require('../assets/gorillaD.gif'); // get gorilla dead gif
 
-    const [image, setImage] = useState(gorillaWel);
+    const [image, setImage] = useState(gorillaWel); // set GIF
 
-    const navigation = useNavigation(); // to navigate to page2
+    const [petHappy, setPetHappy] = useState(100); // start at 100 happiness level
+   
 
     
 
@@ -138,7 +142,8 @@ export default function Page() {
 
     //chnage GIF when pressed
     const changeGif = () => {
-        setImage(gorillaMove);
+
+        setImage(gorillaMove);// chnage GIF to moving gorilla when pressed
 
         //after 5 sec chnage back to original GIF
 
@@ -147,7 +152,46 @@ export default function Page() {
         }, 5000);
     };
 
-    
+    //add happiness when GIF is pressed
+    const addHappy = () => {
+
+        setPetHappy((currentHappy) => Math.min(currentHappy + 10, 100)); // add 5 to happiness cap it at 100
+    };
+
+    //decrease happiness by 5
+    const notHappy = () => {
+
+        setPetHappy((currentHappy) => Math.min(currentHappy - 5, 0)); // minus 5 to happiness cap it at 0
+    };
+
+    //run notHappy function every 5 sec when loaded 
+    useEffect(() => {
+        
+        const interval = setInterval(() => {
+            decreaseHappiness();
+        }, 5000);
+
+        //  clear the interval
+        return () => clearInterval(interval);
+    }, []);
+
+    // chnage GIF when haapiness chnages
+    useEffect(() => {
+        
+        if (petHappy <= 0) {
+
+            setImage(gorillaDead); // Change image to gorilla dead
+            
+        } else if ( petHappy <= 50) {
+
+            setImage(gorillaMad); // Change image to gorilla mad
+
+        } else {
+
+            setImage(gorillaWel); // Change image to welcome gorilla
+        }
+
+    }, [petHappy]);// petHappy chnages
 
     // This effect hook will make sure the app stops recording when it ends
     useEffect(() => {
@@ -193,7 +237,12 @@ export default function Page() {
                         <Animated.View style={[animatedStyles]}>
 
                             <Pressable
-                                onPress={changeGif}// when pressed chnage GIF to move gorilla
+                                onPress={() => {
+                                    changeGif();
+
+                                    addHappy();
+
+                                }}// when pressed chnage GIF to move gorilla and add happiness
                                 
                             >
                             <Image
